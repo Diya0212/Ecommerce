@@ -1,41 +1,37 @@
 import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
 
+import Navbar from './Components/Navbar/Navbar';
+import { BrowserRouter ,Route,Routes} from 'react-router-dom';
+import Shop from './Pages/Shop';
+import ShopCategory from './Pages/ShopCategory';
+import Product from './Pages/Product';
+import Cart from './Pages/Cart';
+import LoginSignup from './Pages/LoginSignup';
+import Footer from './Components/Footer/Footer';
+import men_banner from "./Components/Assets/banner_mens.png"
+import women_banner from "./Components/Assets/banner_women.png"
+import kis_banner from "./Components/Assets/banner_kids.png"
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <div>
+      <BrowserRouter>
+      <Navbar/>
+      <Routes>
+        <Route path='/' element={<Shop/>}></Route>
+        <Route path='/mens' element={<ShopCategory banner={men_banner} category="men"/>}></Route>
+        <Route path='/womens' element={<ShopCategory banner={women_banner} category="women"/>}></Route>
+        <Route path='/kids' element={<ShopCategory banner={kis_banner} category="kid"/>}></Route>
+        <Route path='/product' element={<Product/>}>
+          <Route path=':productId' element={<Product/>}></Route>
+        </Route>
+        
+        <Route path='/cart' element={<Cart/>}></Route>
+        <Route path='/login' element={<LoginSignup/>}></Route>
+      </Routes>
+      <Footer/>
+      </BrowserRouter>
+    </div>
+    
   );
 }
 
